@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<element>
+	<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		<!--<bean id="product1" class="com.javalab.model.Product" scope="prototype">
+			<constructor-arg index="0" value="101"/>
+			<constructor-arg index="1" value="Mouse"/>
+			<constructor-arg index="2" value="500"/>
+			</bean>
+			<bean id="product2" class="com.javalab.model.Product" scope="prototype">
+			<constructor-arg index="0" value="102"/>
+			<constructor-arg index="1" value="KeyBoard"/>
+			<constructor-arg index="2" value="600"/>
+			</bean>
+			<bean id="productDao" class="com.javalab.dao.ProductDaoCollectionImpl">
+			<property name="products">
+			<list>
+			<ref bean="product1"/>
+			<ref bean="product2"/>
+			</list>
+			</property>
+			</bean>-->
+
+		<bean id="dataSource"
+			class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName"
+				value="com.mysql.cj.jdbc.Driver" />
+			<property name="url"
+				value="jdbc:mysql://localhost:3306/springtest" />
+			<property name="username" value="root" />
+			<property name="password" value="ASD#air73poi" />
+		</bean>
+
+		<bean id="productDao"
+			class="com.javalab.dao.ProductDaoSpringJdbcImpl">
+			<property name="jdbcTemplate" ref="dataSource" />
+		</bean>
+
+		<bean id="productService"
+			class="com.javalab.service.ProductServiceImpl">
+			<property name="productDao" ref="productDao" />
+		</bean>
+	</beans>
+</element>
